@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>User Management System</title>
+</h:head>
+
+<h:body>
+    <h:form id="usermanagement-form">
+
+        <p:panel header="User Management System">
+            <h:panelGrid columns="4" cellpadding="8">
+                <h:dataTable value="#{userController.allUsers()}" var="users" border="2">
+                <p:commandButton id="save" value="Save"
+                                 update="save-panel"
+                                 oncomplete="PF('savePanel').show()" />
+                <p:commandButton id="update" value="Update"
+                                 update="update-panel"
+                                 oncomplete="PF('updatePanel').show()" />
+                <p:commandButton id="delete" value="Delete"
+                                 update="delete-panel"
+                                 oncomplete="PF('deletePanel').show()" />
+                </h:dataTable>
+            </h:panelGrid>
+        </p:panel>
+        <p:dialog header="Save" widgetVar="savePanel"
+                  modal="true" resizable="false">
+            <h:panelGrid id="save-panel" columns="1" cellpadding="5">
+                <h:outputText value="First Name: "  />
+                <p:inputText id="saveFirstName" value="#{user.firstName}"/>
+
+                <h:outputText value="Last Name: " />
+                <p:inputText id="saveLastName" value="#{user.lastName}"/>
+
+                <h:outputText value="Phone Number: " />
+                <p:inputText id="savePhoneNum" value="#{user.phoneNum}"/>
+
+                <h:form>
+                    <p:messages showDetail="true"/>
+                    <p:captcha label="Captcha"/>
+                    <br/>-->
+                    <p:commandButton value="Check" action="#{captchaView.submit}" ajax="true" icon="pi pi-check"/>
+                </h:form>
+
+                <h:commandButton value="SaveUser" type="submit" />
+
+                <h:outputText value="#{userController.createUser(user)}" />
+            </h:panelGrid>
+        </p:dialog>
+        <p:dialog header="Update" widgetVar="updatePanel"
+                  modal="true" resizable="false">
+            <h:panelGrid id="update-panel" columns="1" cellpadding="5">
+                <h:outputText value="First Name: "  />
+                <p:inputText id="updateFirstName" value="#{user.firstName}"/>
+
+                <h:outputText value="Last Name: " />
+                <p:inputText id="updateLastName" value="#{user.lastName}"/>
+
+                <h:outputText value="Phone Number: " />
+                <p:inputText id="updatePhoneNum" value="#{user.phoneNum}"/>
+
+                <h:commandButton value="UpdateUser" type="submit"/>
+
+                <h:outputText value="#{userController.updateUser(user)}" />
+            </h:panelGrid>
+        </p:dialog>
+        <p:dialog header="Delete" widgetVar="deletePanel"
+                  modal="true" resizable="false">
+            <h:panelGrid id="delete-panel" columns="1" cellpadding="5">
+                <h:outputText value="First Name: "  />
+                <p:inputText id="deleteFirstName" value="#{user.firstName}"/>
+
+                <h:outputText value="Last Name: " />
+                <p:inputText id="deleteLastName" value="#{user.lastName}"/>
+
+                <h:outputText value="Phone Number: " />
+                <p:inputText id="deletePhoneNum" value="#{user.phoneNum}"/>
+
+                <h:commandButton value="DeleteUser" type="submit"/>
+
+                <h:outputText value="#{userController.deleteUser(user)}" />
+            </h:panelGrid>
+        </p:dialog>
+    </h:form>
+</h:body>
+</html>
